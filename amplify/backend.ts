@@ -31,6 +31,10 @@ backend.addOutput({
             guest: ["get", "list"],
             authenticated: ["get", "list", "write", "delete"],
           },
+          "admin/*": {
+            authenticated: ["get", "list"],
+            groupsadmin: ["get", "list", "write", "delete"],
+          },
         },
       }
     ]
@@ -94,3 +98,39 @@ backend.auth.resources.authenticatedUserIamRole.attachInlinePolicy(
 //   allowedOrigins: ["*"],
 //   allowedHeaders: ["*"],
 // });
+
+/*
+  Define an inline policy to attach to "admin" user group role
+  This policy defines how authenticated users with 
+  "admin" user group role can access your existing bucket
+*/ 
+const adminPolicy = new Policy(backend.stack, "customBucketAdminPolicy", {
+  statements: [
+    new PolicyStatement({
+      effect: Effect.ALLOW,
+      actions: [
+        "s3:GetObject",
+        "s3:PutObject", 
+        "s3:DeleteObject"
+      ],
+      resources: [ `${customBucket.bucketArn}/admin/*`],
+    }),
+    new PolicyStatement({
+      effect: Effect.ALLOW,
+      actions: ["s3:ListBucket"],
+      resources: [
+        `${customBucket.bucketArn}`
+        `${customBucket.bucketArn}/*`
+      ],
+      conditions: {
+        StringLike: {
+          "s3:prefix": ["admin/*", "admin/"],
+        },
+      },
+    }),
+  ],
+});
+
+
+// Add the policies to the "admin" user group role
+backend.auth.resources.groups["admin"].role.attachInlinePolicy(adminPolicy);
