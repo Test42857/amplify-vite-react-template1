@@ -13,7 +13,7 @@ const customBucketStack = backend.createStack("custom-bucket-stack");
 
 // Import existing bucket
 const customBucket = Bucket.fromBucketAttributes(customBucketStack, "MyCustomBucket", {
-  bucketArn: `arn:aws:s3:::baff-demo-storage-browser-test1`,
+  bucketArn: `arn:aws:s3:::baff-demo-storage-browser-test2`,
   region: "us-east-1"
 });
 
