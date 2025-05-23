@@ -1,6 +1,6 @@
 import { defineBackend } from '@aws-amplify/backend';
 import { Effect, Policy, PolicyStatement } from "aws-cdk-lib/aws-iam";
-import { Bucket, HttpMethods } from "aws-cdk-lib/aws-s3";
+import { Bucket } from "aws-cdk-lib/aws-s3";
 import { auth } from './auth/resource';
 import { data } from './data/resource';
 
@@ -119,7 +119,7 @@ const adminPolicy = new Policy(backend.stack, "customBucketAdminPolicy", {
       effect: Effect.ALLOW,
       actions: ["s3:ListBucket"],
       resources: [
-        `${customBucket.bucketArn}`
+        `${customBucket.bucketArn}`,
         `${customBucket.bucketArn}/*`
       ],
       conditions: {
