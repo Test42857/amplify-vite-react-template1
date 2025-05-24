@@ -40,6 +40,22 @@ try {
     console.log('⚠️ WARNING: AWS CDK and AWS CDK Lib versions do not match');
   }
   
+  // Check amplify.yml for CDK version
+  try {
+    const amplifyYmlPath = path.join(process.cwd(), 'amplify.yml');
+    const amplifyYmlContent = fs.readFileSync(amplifyYmlPath, 'utf8');
+    
+    if (amplifyYmlContent.includes('aws-cdk@latest')) {
+      console.log('✅ amplify.yml installs the latest AWS CDK version');
+    } else if (amplifyYmlContent.includes('aws-cdk@2.138.0')) {
+      console.log('⚠️ WARNING: amplify.yml installs a specific AWS CDK version (2.138.0), which might not be compatible');
+    } else {
+      console.log('❌ ERROR: amplify.yml does not install AWS CDK');
+    }
+  } catch (error) {
+    console.error(`\n❌ ERROR: Could not check amplify.yml for CDK version: ${error.message}`);
+  }
+  
   // Check engines field
   if (packageJson.engines && packageJson.engines.node) {
     console.log(`\nNode.js version requirement in package.json: ${packageJson.engines.node}`);
