@@ -1,0 +1,15 @@
+{
+  "auth": {
+    "identity": {
+      "region": "us-east-1",
+      "userPoolId": "mock-user-pool-id",
+      "userPoolClientId": "mock-user-pool-client-id"
+    }
+  },
+  "storage": {
+    "s3": {
+      "region": "us-east-1",
+      "bucket": "mock-bucket-name"
+    }
+  }
+}

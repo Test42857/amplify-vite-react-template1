@@ -25,6 +25,7 @@ dist-ssr
 
 # amplify
 .amplify
-amplify_outputs*
+# Temporarily allowing amplify_outputs.json for the build
+# amplify_outputs*
 amplifyconfiguration*
 /.npm
