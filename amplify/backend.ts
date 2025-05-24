@@ -29,7 +29,6 @@ backend.addOutput({
         paths: {
           "public/*": {
             guest: ["get", "list"],
-            authenticated: ["get", "list", "write", "delete"],
           },
           "admin/*": {
             authenticated: ["get", "list"],
