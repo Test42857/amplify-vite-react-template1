@@ -1,0 +1,5 @@
+redirect output to file for the following error
+
+cmd: aws amplify list-jobs --app-id d14vbunirlrmsa --branch-name main
+error:'cat' is not recognized as an internal or external command,
+operable program or batch file.
